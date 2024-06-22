@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+/* PÁGINA LANÇAMENTOS FINANCEIROS */
+
+.table-responsive {
+    overflow-x: visible;
+}
+
+.entrada-saida {
+    font-size: 13px;
+}

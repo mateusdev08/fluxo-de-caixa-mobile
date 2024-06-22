@@ -1,0 +1,127 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Lançamentos Financeiros{% endblock %}
+
+{% block header %}
+    {% block nav %}
+
+        <nav class="barra-menu">
+            <a href="{% url 'home' %}" class="logo-marca">MCS</a>
+            {% if user.is_authenticated %}
+                <div class="container-msg-autenticado">
+                    <p class="msg-autenticado">
+                        Seja Bem Vindo! <strong>{{ user.username }}</strong> <a class="badge text-bg-secondary btn-logout" href="{% url 'logout' %}">Sair</a>
+                    </p>
+                    <p class="nome-tela-sistema">Módulo: Lançamentos Financeiros</p>
+                </div>
+
+                <div class="opcoes-menu">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'f_lancamento' %}">Novo Registro</a>
+                    <a href="{% url 'consultar_lancamentos' %}">Lançamentos</a>
+                </div>
+            {% else %}
+                <h4 class="msg-fazer-login">
+                    Seja Bem Vindo! Faça o login <a class="btn btn-info btn-entrar-inicio" href="{% url 'login' %}">Entrar</a>
+                </h4>
+            {% endif %}
+        </nav>
+                    
+    {% endblock %}
+{% endblock %}
+
+{% block main %}
+    <div class="pesquisa">
+        <form class="row g-3" action="">
+            {% comment %} <input name="dt_vencimento" type="text" placeholder="Data Vencimento"> {% endcomment %}
+            <dvi class="col-md-2">
+                <select class="form-select" name="conta" id="conta">
+                    {% for item in conta %}
+                        <option value="{{ item }}">
+                            {{ item }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </dvi>
+
+            <div class="col-md-2">
+                <select class="form-select" name="cartao" id="cartao">
+                    {% for item in cartao %}
+                        <option value="{{ item }}">
+                            {{ item }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select class="form-select" name="natureza" id="natureza">
+                    {% for item in natureza %}
+                        <option value="{{ item }}">
+                            {{ item }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit">Pesquisar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Vencimento</th>
+                    <th scope="col">Movimentação</th>
+                    <th scope="col">Conta</th>
+                    <th scope="col">Cartão</th>
+                    <th scope="col">Natureza</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Parcela</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            {% for registro in lancamentos %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ registro.id }}</th>
+                        <td>{{ registro.dt_vencimento }}</td>
+                        <td>
+                            {% if registro.movimentacao == 'Saídas' %}
+                                <p class="badge text-bg-danger entrada-saida">{{ registro.movimentacao }}</p>
+                            {% else %}
+                                <p class="badge text-bg-success entrada-saida">{{ registro.movimentacao }}</p>
+                            {% endif %}
+                        </td>
+                        <td>{{ registro.conta }}</td>
+                        <td>{{ registro.cartao }}</td>
+                        <td>{{ registro.natureza }}</td>
+                        <td>
+                            {% if registro.status_movimento == 'A Pagar' or registro.status_movimento == 'Pago' %}
+                                <p class="badge text-bg-danger entrada-saida">{{ registro.status_movimento }}</p>
+                            {% elif registro.status_movimento == 'Previsão' %}
+                                <p class="badge text-bg-primary entrada-saida">{{ registro.status_movimento }}</p>
+                            {% else %}
+                                <p class="badge text-bg-success entrada-saida">{{ registro.status_movimento }}</p>
+                            {% endif %}
+                        </td>
+                        <td>{{ registro.parcela }}</td>
+                        <td>{{ registro.valor_parcela }}</td>
+                        <td>{{ registro.descricao }}</td>
+                        <td>
+                            <a href="{% url 'editar_lancamento' registro.id %}"><img src="{% static 'img/editar.png' %}" alt="Editar" width="30px" height="30px"></a>
+                            <a href="{% url 'deletar_f_lancamento' registro.id %}"><img src="{% static 'img/excluir.png' %}" alt="Deletar" width="36px" height="36px"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* PÁGINA DELETAR REGISTRO FINANCEIRO */
+
+.container-deletar-financeiro {
+    background-color: #6273a42a;
+    box-shadow: 1px 1px 5px #00000056;
+    text-align: center;
+    padding: 20px;
+    margin: auto;
+    margin-top: 30px;
+    width: 700px;
+    border-radius: 10px;
+}

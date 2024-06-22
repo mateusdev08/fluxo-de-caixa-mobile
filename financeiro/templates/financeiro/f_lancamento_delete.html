@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Deletar Registro{% endblock %}
+
+{% block main %}
+
+    <div class="container-deletar-financeiro">
+        <h2>Tem certeza que deseja deletar o registro?</h2>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Vencimento</th>
+                        <th scope="col">Movimentação</th>
+                        <th scope="col">Natureza</th>
+                        <th scope="col">Parcela</th>
+                        <th scope="col">Valor Parcela</th>
+                        <th scope="col">Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ deletar.dt_vencimento }}</td>
+                        <td>{{ deletar.movimentacao }}</td>
+                        <td>{{ deletar.natureza }}</td>
+                        <td>{{ deletar.parcela }}</td>
+                        <td>{{ deletar.valor_parcela }}</td>
+                        <td>{{ deletar.descricao }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Deletar</button>
+            <a class="btn btn-secondary" href="{% url 'consultar_lancamentos' %}">Cancelar</a>
+        </form>
+    </div>
+
+{% endblock %}

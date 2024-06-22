@@ -1,0 +1,161 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Regristo Financeiro{% endblock %}
+
+{% block header %}
+    {% block nav %}
+
+        <nav class="barra-menu">
+            <a href="{% url 'home' %}" class="logo-marca">MCS</a>
+            {% if user.is_authenticated %}
+                <div class="container-msg-autenticado">
+                    <p class="msg-autenticado">
+                        Seja Bem Vindo! <strong>{{ user.username }}</strong> <a class="badge text-bg-secondary btn-logout" href="{% url 'logout' %}">Sair</a>
+                    </p>
+                    <p class="nome-tela-sistema">Módulo: Registro Financeiro</p>
+                </div>
+
+                <div class="opcoes-menu">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'f_lancamento' %}">Novo Registro</a>
+                    <a href="{% url 'consultar_lancamentos' %}">Lançamentos</a>
+                </div>
+                    
+            {% else %}
+                <h4 class="msg-fazer-login">
+                    Seja Bem Vindo! Faça o login <a class="btn btn-info btn-entrar-inicio" href="{% url 'login' %}">Entrar</a>
+                </h4>
+            {% endif %}
+        </nav>
+                    
+    {% endblock %}
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-form-financeiro">
+        <div class="row">
+            <div class="col">
+                <form class="row g-3" method="post" action="{% url 'salvar_f_lancamento' %}">
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        <label class="form-label" for="classe">Classe</label>
+                        <select class="form-select" name="classe" id="classe">
+                            {% for item in classe %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+        
+                        <div class="col-md-4">
+                            <label class="form-label" for="grupo">Grupo</label>
+                            <select class="form-select" name="grupo" id="grupo">
+                                {% for item in grupo %}
+                                    <option value="{{ item }}">
+                                        {{ item }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+        
+                            <div class="col-md-4">
+                                <label class="form-label" for="natureza">Natureza</label>
+                                <select class="form-select" name="natureza" id="natureza">
+                                    {% for item in natureza %}
+                                        <option value="{{ item }}">
+                                            {{ item }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="dt_movimento">Data Movimento</label>
+                        <input class="form-control" type="date" name="dt_movimento" id="dt_movimento">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="dt_vencimento">Data Vencimento</label>
+                        <input class="form-control" type="date" name="dt_vencimento" id="dt_vencimento">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="centro_de_custo">Centro de Custo</label>
+                        <select class="form-select" name="centro_de_custo" id="centro_de_custo">
+                            {% for item in centro_de_custo %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="movimentacao">Movimentação</label>
+                        <select class="form-select" name="movimentacao" id="movimentacao">
+                            {% for item in movimentacao %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="conta">Conta</label>
+                        <select class="form-select" name="conta" id="conta">
+                            {% for item in conta %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="cartao">Cartao</label>
+                        <select class="form-select" name="cartao" id="cartao">
+                            {% for item in cartao %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="status_movimento">Status Movimento</label>
+                        <select class="form-select" name="status_movimento" id="status_movimento">
+                            {% for item in status_movimento %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="forma_pagamento">Forma de Pagamento</label>
+                        <select class="form-select" name="forma_pagamento" id="forma_pagamento">
+                            {% for item in forma_pagamento %}
+                                <option value="{{ item }}">
+                                    {{ item }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="qtde_parcela">Quantidade de Parcela</label>
+                        <input class="form-control" type="number" name="qtde_parcela" id="qtde_parcela">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="valor">Valor</label>
+                        <input class="form-control" type="number" step=".01" name="valor" id="valor">
+                    </div>
+                    <label class="form-label" for="descricao">Descrição</label>
+                    <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="4"></textarea>
+        
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn btn-info">Salvar</button>
+                        <a class="btn btn-secondary" href="{% url 'consultar_lancamentos' %}">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      
+{% endblock %}

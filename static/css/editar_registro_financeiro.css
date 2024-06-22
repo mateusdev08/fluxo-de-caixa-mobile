@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+/* PÁGINA EDITAR REGISTRO FINANCEIRO */
+
+.container-form-financeiro-editar {
+    background-color: #6273a42a;
+    box-shadow: 1px 1px 5px #00000056;
+    width: 700px;
+    margin: auto;
+    padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

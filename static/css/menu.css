@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+/* BARRA DE MENU GLOBAL */
+
+.barra-menu {
+    background-color: #13141F;
+    height: 80px;
+}
+
+.logo-marca {
+    color: #ffffff;
+    font-size: 40px;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+/* NOME DA TELA */
+
+.nome-tela-sistema {
+    color: #6272A4;
+    font-weight: bold;
+    margin-top: -15px;
+}
+
+/* BARRA DE MENU USUÁRIO NÃO AUTENTICADO */
+
+.msg-fazer-login {
+    color: #6272A4;
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+/* BARRA DE MENU USUÁRIO AUTENTICADO */
+
+.container-msg-autenticado {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.msg-autenticado {
+    color: #6272A4;
+    font-size: 20px;
+}
+
+.btn-logout {
+    text-decoration: none;
+}
+
+.opcoes-menu {
+    text-align: center;
+    margin-top: -40px;
+}
+
+.opcoes-menu > a {
+    color: #FF79C6;
+    font-size: 22px;
+    margin-left: 15px;
+    text-decoration: none;
+}

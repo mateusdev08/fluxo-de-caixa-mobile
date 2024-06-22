@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+/* TELA DO LOGIN */
+
+.container-login {
+    background-color: #6273a42a;
+    box-shadow: 1px 1px 5px #00000056;
+    margin: 14% auto;
+    width: 350px; 
+    padding: 20px;
+    border-radius: 10px; 
+}
+
+.btn-login {
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.btn-login-cancelar {
+    width: 100%;
+}
+
+.countainer-img-login {
+    display: inline-block;
+}
